@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Download</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        #progress-bar {
+            transition: width 1s ease-in-out;
+        }
+           </style>
+</head>
+<body class="bg-sky-400 flex items-center justify-center min-h-screen">
+
+    <div class="text-center p-5 bg-white rounded-lg shadow-xl">
+
+    <input type="hidden" id="file-id" value="{{file_id}}">
+        <div id="progress-container" class="mb-4 w-64 bg-gray-300 rounded-full overflow-hidden">
+            <div id="progress-bar" class="bg-gradient-to-r from-blue-400 to-blue-600 text-xs leading-none py-1 text-center text-white" style="width: 0%">0%</div>
+     
+
+    </div>
+        <a id="download-btn" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded opacity-0 pointer-events-none" style="text-decoration: none; display: inline-block;">
+            Download File
+        </a>
+    </div>
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <script>
+    const progressBar = document.getElementById('progress-bar');
+    const downloadBtn=document.getElementById('download-btn');
+    const textArea = document.getElementById('textdata');
+
+    const fileid =  document.getElementById('file-id').value;
+    let progress = 0;  // Initialize progress at 0
+
+
+    // Start polling the backend every second
+    function mockProgressUpdate()  {
+        if (progress < 100) {
+            progress += 5; // Increment progress
+            progressBar.style.width = `${progress}%`;
+            progressBar.textContent = `${progress}%`;
+        }
+    };
+	 let progressInterval = setInterval(mockProgressUpdate, 10000);
+
+    let pollingInterval = setInterval(pollFileReady, 5000);
+
+	function pollFileReady() {
+    $.ajax({
+        url: '/get-status',
+        type: 'GET',
+        data: {file: fileid},
+        success: function(data) {
+            // Check if the file is ready
+	   console.log('Sucess',data);
+            if (data.isReady) {
+                clearInterval(progressInterval);
+
+	                clearInterval(pollingInterval );
+		 // Stop the mock progress
+                progressBar.style.width = '100%'; // Ensure progress bar shows complete
+                progressBar.textContent = '100%';
+                downloadBtn.style.opacity = '1';
+                downloadBtn.classList.remove('pointer-events-none');
+               	textArea.
+                downloadBtn.setAttribute('href',data.url);
+                downloadBtn.setAttribute('download','');
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error('Error fetching status:', textStatus, errorThrown);
+            // Optionally handle retries or stop after certain attempts
+        }
+    });
+};
+
+    // Start the mock progress update every 5 seconds
+   
+</script></body>
+</html>

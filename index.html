@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Data Request</title>
+<style>
+#onebloack {
+            width: 350px;
+            position: absolute;
+            top: 20%;
+            left: 35%;
+            border-width: 2px;
+            border-style: solid;
+            border-color: black;
+            padding: 20px;
+            border-radius: 10%;
+            background-color:#638eab;
+}
+body{
+background-color:#70a5da;
+}
+</style>
+    
+</head>
+<body>
+<div id="onebloack" class= "p-3 mb-2 bg-secondary text-white">
+    <div class="container">
+        <h5>Data Request for Diffrent States</h5>
+        <form id="dataRequestForm" action="dataRequestForm" method="post">
+            <label for="option">Select an option:</label>
+            <select id="state" name="state">
+                <option value="OH">NV</option>
+                <option value="TX">TX</option>
+                <option value="NY">NY</option>
+                <!-- Add more options if needed -->
+            </select>
+            <br><br>
+            <button type="submit">Request Data</button>
+        </form>
+        <div id="dataContainer"></div>
+</div>
+</body>
+</html>
+
