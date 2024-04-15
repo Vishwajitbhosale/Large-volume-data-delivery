@@ -21,8 +21,8 @@ file_handler.setFormatter(formatter)
 app.logger.addHandler(file_handler)
 
 s3 = boto3.client('s3',
-                  aws_access_key_id='AKIASXC2VQZTE3OQIDJA',
-                  aws_secret_access_key='ndawEcjCp3gEEoozxjZ6EDmqkhjcMZmvu1KJRMis')
+                  aws_access_key_id='Yourkeyid',
+                  aws_secret_access_key='youraccesskey')
 @app.route('/')
 def index():
     return render_template('index.html')
